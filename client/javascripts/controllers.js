@@ -23,15 +23,16 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
     vm.macros = NutritionService.getMacros(data);
     window.macros = vm.macros;
 
-    var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
+    var donutWidth = 100;
     
-    var color = d3.scale.ordinal()
-      .range(macroColors); 
+    var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
+    var color = d3.scale.ordinal().range(macroColors); 
 
     var width = 360;
     var height = 360;
     var radius = Math.min(width, height) / 2;
 
+    // Creates a canvas and sets placeholder values
     var svg = d3.select('#macroPie')
       .append('svg')
       .attr('width', width)
@@ -40,13 +41,17 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
       .attr('transform', 'translate(' + (width / 2) + 
         ',' + (height / 2) + ')');
 
+    // Determine nutrient radius
     var arc = d3.svg.arc()
+      .innerRadius(radius - donutWidth)
       .outerRadius(radius);
 
+    // Determine value from dataset
     var pie = d3.layout.pie()
       .value(function(d) { return +d.value; })
       .sort(null);
 
+    // Use the above to create pie chart
     var path = svg.selectAll('path')
       .data(pie(vm.macros))
       .enter()
@@ -55,6 +60,38 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
       .attr('fill', function(d, i) { 
         return color(macroColors[i]);
       });
+
+
+    // Creating Legend
+    var legendRectSize = 9;
+    var legendSpacing = 4;
+
+    // Creates placeholder for legend rectangles
+    var legend = svg.selectAll('.legend')
+      .data(color.domain())
+      .enter()
+      .append('g')
+      .attr('class', 'legend')
+      .attr('transform', function(d, i) {
+        var height = legendRectSize + legendSpacing;
+        var offset =  height * color.domain().length / 2;
+        var h = -5.5 * legendRectSize;
+        var v = i * height - offset;
+        return 'translate(' + h + ',' + v + ')';
+      });
+
+    // Fills the legend rectangles with color
+    legend.append('rect')
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .style('fill', color)
+      .style('stroke', color);
+      
+    // Adds text for legend
+    legend.append('text')
+      .attr('x', legendRectSize + legendSpacing)
+      .attr('y', legendRectSize - legendSpacing + 3)
+      .text(function(d, i) { return macros[i].name.toLowerCase(); });
   }
   
 
