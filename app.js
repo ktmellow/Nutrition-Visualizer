@@ -37,7 +37,7 @@ app.get("/foodData", function(req, res) {
   })
 });
 
-
+// Landing page
 app.get("/", function(req, res) {
   res.sendFile(__dirname + '/client/views/layout.html');
 });
