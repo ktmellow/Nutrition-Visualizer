@@ -17,6 +17,7 @@ app.use('/client', express.static('client'));
 
 
 // Routes
+// TO DO: Refactor /foodData 
 app.get("/foodData", function(req, res) {
   var sample_url = 'http://api.nal.usda.gov/ndb/reports/?ndbno=01009&type=f&format=json&api_key=';
   request({
@@ -30,7 +31,7 @@ app.get("/foodData", function(req, res) {
     parsed_body = JSON.parse(body)
     res.format({
       json: function() {
-        res.json({body})
+        res.json({parsed_body})
       }
     })
   })

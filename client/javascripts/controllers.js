@@ -6,10 +6,8 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
   vm.submit = function(){
     console.log(form.query);
     NutritionService.getData().then(function(data) {
-      vm.type = typeof(data.data.body);
-      vm.data = data.data.body;
-      window.data = data.data;
+      vm.data = data.data.parsed_body.report.food;
+      window.data = data.data.parsed_body.report.food;
     });
   }
-
 }]);
