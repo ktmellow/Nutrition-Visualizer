@@ -18,7 +18,7 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
   // Display Pie Chart of Macronutrients
   // Following tutorial from 
   // http://zeroviscosity.com/d3-js-step-by-step/step-1-a-basic-pie-chart
-  // TO DO: move logic to services.js
+  // TO DO: Move logic to services.js
   vm.macroPieMaker = function() {
     vm.macros = NutritionService.getMacros(data);
     window.macros = vm.macros;
@@ -47,14 +47,14 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
       .value(function(d) { return +d.value; })
       .sort(null);
 
-      var path = svg.selectAll('path')
-        .data(pie(vm.macros))
-        .enter()
-        .append('path')
-        .attr('d', arc)
-        .attr('fill', function(d, i) { 
-          return color(macroColors[i]);
-        });
+    var path = svg.selectAll('path')
+      .data(pie(vm.macros))
+      .enter()
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', function(d, i) { 
+        return color(macroColors[i]);
+      });
   }
   
 
