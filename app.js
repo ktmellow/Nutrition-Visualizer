@@ -17,10 +17,10 @@ app.use('/client', express.static('client'));
 
 
 // Routes
-app.get("/", function(req, res){
+app.get("/", function(req, res) {
   res.sendFile(__dirname + '/client/views/layout.html');
 });
 
-app.listen(3000, function(){
+app.listen(3000, function() {
   console.log("Server is listening on port 3000...");
 });
