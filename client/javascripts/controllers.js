@@ -26,7 +26,7 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
     var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
     
     var color = d3.scale.ordinal()
-      .range(['#A60F2B', '#648C85', '#B3F2C9', '#528C18', '#C3F25C']); 
+      .range(macroColors); 
 
     var width = 360;
     var height = 360;
