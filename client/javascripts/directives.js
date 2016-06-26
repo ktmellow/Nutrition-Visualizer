@@ -3,7 +3,9 @@
 // http://zeroviscosity.com/d3-js-step-by-step/step-1-a-basic-pie-chart
 app.directive("fdPie", function(){
   // Draws the pie chart.
-  var draw = function(dataset, pieType) {
+  var draw = function(dataset, pieType, element) {
+    
+
 
     var colors;
     var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
@@ -167,13 +169,13 @@ app.directive("fdPie", function(){
     },
     compile: function(element, attrs, transclude) {
       return function(scope, element, attrs) {
-        debugger
+
         // Watch the dataset
         scope.$watch('dataset', function(newVal, oldVal, scope) {
-           debugger
+          // d3.select('fd-pie').remove();
           // Updates pie chart
-          draw(newVal.dataset, newVal.pieType);   
-        }, true)
+          draw(scope.dataset, scope.pieType, element);   
+        }, false)
       }
     }
   }
