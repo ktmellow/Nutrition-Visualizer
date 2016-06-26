@@ -6,8 +6,8 @@ app.directive("pie", function(){
     templateUrl: "/client/partials/pie.html",
     restrict: 'AE',
     scope: {
-      dataset: '=',
-      pieType: '='
+      dataset: '<',
+      pieType: '<'
     },
     controller: function(){},
     controllerAs: 'vm',

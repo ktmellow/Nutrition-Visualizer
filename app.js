@@ -15,20 +15,42 @@ app.use(bodyParser.json({type:"application/json"}));
 app.use(methodOverride('_method'));
 app.use('/client', express.static('client'));
 
-
 // Routes
-// TO DO: Refactor /foodData 
-app.get("/foodData", function(req, res) {
-  var sample_url = 'http://api.nal.usda.gov/ndb/reports/?ndbno=01009&type=f&format=json&api_key=';
+// TO DO: Refactor /food/data
+// Use helper functions for requests
+
+app.get("/food/suggest", function(req, res) {
+  var query = encodeURIComponent(req.query.q);
+  var search_url= `http://api.nal.usda.gov/ndb/search/?format=json&q=${query}&sort=n&max=10&offset=0&api_key=${api_key}`;
   request({
-    url: sample_url + api_key,
+    url: search_url,
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+  }, function(error, response, body) {
+    var parsed_body = JSON.parse(body);
+    res.format({
+      json: function() {
+        res.json({parsed_body})
+      }
+    })
+  });
+})
+
+app.get("/food/data/", function(req, res) {
+  var id = req.query.id;
+  var food_url = `http://api.nal.usda.gov/ndb/reports/?ndbno=${id}&type=f&format=json&api_key=${api_key}`;
+  request({
+    url: food_url,
     method: 'GET',
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
 }, function(error, response, body) {
-    parsed_body = JSON.parse(body)
+    var parsed_body = JSON.parse(body);
     res.format({
       json: function() {
         res.json({parsed_body})
