@@ -26,12 +26,18 @@ app.service("NutritionService", function($http) {
   // http://zeroviscosity.com/d3-js-step-by-step/step-1-a-basic-pie-chart
   // TO DO: Move logic DOM manipulations to its own directive!
 app.service("D3Service", function() {
+  
   return {
-    macroPieMaker: function(dataset){
+    pieMaker: function(dataset, pieType){
       var macros = dataset;
-      
+
       var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
-      var color = d3.scale.ordinal().range(macroColors); 
+
+      if (pieType === "macroPie") {
+        var colors = macroColors;
+      }
+
+      var color = d3.scale.ordinal().range(colors); 
 
       var height = 360;
       var width = 360;
@@ -43,7 +49,7 @@ app.service("D3Service", function() {
       });
 
       // Creates a canvas and sets placeholder values
-      var svg = d3.select('#macroPie')
+      var svg = d3.select('#' + pieType)
         .append('svg')
         .attr('width', width)
         .attr('height', height)
@@ -68,7 +74,7 @@ app.service("D3Service", function() {
         .append('path')
         .attr('d', arc)
         .attr('fill', function(d, i) { 
-          return color(macroColors[i]);
+          return color(colors[i]);
         });
 
       // Adds tooltip on mouseover. 
@@ -138,7 +144,7 @@ app.service("D3Service", function() {
           // The 'rect' only has color value, so must check which
           // rect was clicked based on color. (Not ideal.)
           pie.value(function(d, i) {
-            if (macroColors[i] === label) {
+            if (colors[i] === label) {
               d.enabled = enabled;
             } 
             return (d.enabled) ? d.value : 0;
