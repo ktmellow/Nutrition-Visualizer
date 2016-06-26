@@ -170,32 +170,3 @@ app.directive("pie", function(){
     }
   }
 })
-
-
-// app.directive('barsChart', function ($parse) {
-
-//   var directiveDefinitionObject = {
-//     restrict: 'E',
-//     replace: false,
-//     scope: {
-//       data: '<'
-//     },
-//     link: function (scope, element, attrs) {
-//       var data = attrs.chartData.split(',');
-//      //in D3, any selection[0] contains the group
-//      //selection[0][0] is the DOM node
-//      //but we won't need that this time
-//       var chart = d3.select(element[0]);
-//      //to our original directive markup bars-chart
-//      //we add a div with out chart stling and bind each
-//      //data entry to the chart
-//       chart.append("div").attr("class", "chart")
-//         .selectAll('div')
-//         .data(data).enter().append("div")
-//         .transition().ease("elastic")
-//         .style("width", function(d) { return d + "%"; })
-//         .text(function(d) { return d + "%"; });
-//       } 
-//     };
-//     return directiveDefinitionObject;
-//  });
