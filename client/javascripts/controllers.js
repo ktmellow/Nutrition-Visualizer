@@ -8,8 +8,6 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
     NutritionService.getData().then(function(data) {
       vm.data = data.data.parsed_body.report.food;
       vm.data = NutritionService.getNutrients(vm.data);
-
-      vm.macroData = NutritionService.getMacros(vm.data)
       window.data = vm.data;
       vm.macroPieMaker();
     });
@@ -18,19 +16,22 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
   // Display Pie Chart of Macronutrients
   // Following tutorial from 
   // http://zeroviscosity.com/d3-js-step-by-step/step-1-a-basic-pie-chart
-  // TO DO: Move logic to services.js
+  // TO DO: Move logic DOM manipulations to its own directive!
   vm.macroPieMaker = function() {
-    vm.macros = NutritionService.getMacros(data);
-    window.macros = vm.macros;
-
-    var donutWidth = 100;
+    var macros = NutritionService.getMacros(data);
+    window.macros = macros;
     
     var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
     var color = d3.scale.ordinal().range(macroColors); 
 
-    var width = 360;
     var height = 360;
+    var width = 360;
     var radius = Math.min(width, height) / 2;
+    var donutWidth = 100;
+    
+    macros.forEach(function(d) {
+      d.enabled = true; // NEW
+    });
 
     // Creates a canvas and sets placeholder values
     var svg = d3.select('#macroPie')
@@ -53,7 +54,7 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
 
     // Use the above to create pie chart
     var path = svg.selectAll('path')
-      .data(pie(vm.macros))
+      .data(pie(macros))
       .enter()
       .append('path')
       .attr('d', arc)
@@ -61,6 +62,27 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
         return color(macroColors[i]);
       });
 
+    // Adds tooltip on mouseover. 
+    path.on('mouseover', function(d) {
+      var total = d3.sum(macros.map(function(d) {
+        return (d.enabled) ? d.value : 0;
+      }));
+      var percent = Math.round(1000 * d.value / total) / 10;
+      tooltip.select('.label').html(d.data.name);
+      tooltip.select('.percent').html(percent + '%')
+      tooltip.style('display', 'block');
+    })
+    .each(function(d) { this._current = d; });     
+
+    path.on('mouseout', function() {
+      tooltip.style('display', 'none');
+    });
+
+    // Tooltip will move with mouse
+    path.on('mousemove', function(d) {
+      tooltip.style('top', (d3.event.layerY + 10) + 'px')
+        .style('left', (d3.event.layerX + 10) + 'px');
+    });
 
     // Creating Legend
     var legendRectSize = 9;
@@ -80,18 +102,67 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
         return 'translate(' + h + ',' + v + ')';
       });
 
-    // Fills the legend rectangles with color
+    // Fills the legend rectangles with color and adds event listeners
     legend.append('rect')
       .attr('width', legendRectSize)
       .attr('height', legendRectSize)
       .style('fill', color)
-      .style('stroke', color);
-      
+      .style('stroke', color)
+
+      .on('click', function(label) {
+        var rect = d3.select(this);
+        var enabled = true;
+
+        // If total enabled segments are < 2, cannot disable any more
+        var totalEnabled = d3.sum(macros.map(function(d) {
+          return (d.enabled) ? 1 : 0;
+        }))
+        if (rect.attr('class') === 'disabled') {
+          rect.attr('class', '');
+        } else {
+          if (totalEnabled < 2) return;
+          rect.attr('class', 'disabled');
+          enabled = false;
+        }
+
+ 
+        // The 'rect' only has color value, so must check which
+        // rect was clicked based on color. (Not ideal.)
+        pie.value(function(d, i) {
+          if (macroColors[i] === label) {
+            d.enabled = enabled;
+          } 
+          return (d.enabled) ? d.value : 0;
+        });
+
+        path = path.data(pie(macros));
+
+        path.transition()
+          .duration(750)
+          .attrTween('d', function(d) {
+            // debugger
+            var interpolate = d3.interpolate(this._current, d)
+            this._current = interpolate(0);
+            return function(t) {
+              return arc(interpolate(t));
+            }
+          })
+      });
+
     // Adds text for legend
     legend.append('text')
       .attr('x', legendRectSize + legendSpacing)
       .attr('y', legendRectSize - legendSpacing + 3)
-      .text(function(d, i) { return macros[i].name.toLowerCase(); });
+      .text(function(d, i) { return macros[i].name.toLowerCase(); 
+    });
+
+   // Adds tooltip
+    var tooltip = d3.select('#macroPie')
+      .append('div')          
+      .attr('class', 'tooltip');
+    tooltip.append('div').attr('class', 'label');
+    tooltip.append('div').attr('class', 'count'); 
+    tooltip.append('div').attr('class', 'percent'); 
   }
   
 

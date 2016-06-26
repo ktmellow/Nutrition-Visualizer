@@ -1,6 +1,34 @@
+#macroPie {
+  height: 360px;
+  margin: 0 auto;
+  position: relative;
+  width: 360px;
+}
+
 .legend {
   font-size: 10px;
 }
+
 rect {
+  cursor: pointer;
   stroke-width: 2;
+}
+
+rect.disabled {
+  fill: transparent !important;
+}
+
+.tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 95px;
+  width: 80px;
+  z-index: 10;
 }
