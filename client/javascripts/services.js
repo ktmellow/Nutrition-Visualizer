@@ -29,7 +29,6 @@ app.service("D3Service", function() {
   
   return {
     pieMaker: function(dataset, pieType){
-      var macros = dataset;
 
       var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
 
@@ -44,7 +43,7 @@ app.service("D3Service", function() {
       var radius = Math.min(width, height) / 2;
       var donutWidth = 100;
       
-      macros.forEach(function(d) {
+      dataset.forEach(function(d) {
         d.enabled = true;
       });
 
@@ -69,7 +68,7 @@ app.service("D3Service", function() {
 
       // Use the above to create pie chart
       var path = svg.selectAll('path')
-        .data(pie(macros))
+        .data(pie(dataset))
         .enter()
         .append('path')
         .attr('d', arc)
@@ -79,7 +78,7 @@ app.service("D3Service", function() {
 
       // Adds tooltip on mouseover. 
       path.on('mouseover', function(d) {
-        var total = d3.sum(macros.map(function(d) {
+        var total = d3.sum(dataset.map(function(d) {
           return (d.enabled) ? d.value : 0;
         }));
         var percent = Math.round(1000 * d.value / total) / 10;
@@ -129,7 +128,7 @@ app.service("D3Service", function() {
           var enabled = true;
 
           // If total enabled segments are < 2, cannot disable any more
-          var totalEnabled = d3.sum(macros.map(function(d) {
+          var totalEnabled = d3.sum(dataset.map(function(d) {
             return (d.enabled) ? 1 : 0;
           }))
           if (rect.attr('class') === 'disabled') {
@@ -150,7 +149,7 @@ app.service("D3Service", function() {
             return (d.enabled) ? d.value : 0;
           });
 
-          path = path.data(pie(macros));
+          path = path.data(pie(dataset));
 
           path.transition()
             .duration(750)
@@ -168,7 +167,7 @@ app.service("D3Service", function() {
       legend.append('text')
         .attr('x', legendRectSize + legendSpacing)
         .attr('y', legendRectSize - legendSpacing + 3)
-        .text(function(d, i) { return macros[i].name.toLowerCase(); 
+        .text(function(d, i) { return dataset[i].name.toLowerCase(); 
       });
 
      // Adds tooltip
