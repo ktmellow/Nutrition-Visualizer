@@ -13,8 +13,11 @@ app.directive("pie", function(){
     controllerAs: 'vm',
     bindToController: true,
     link: function(scope, element, attrs, vm) {
-
+      // var dataset = vm.dataset;
       var dataset = vm.dataset;
+      var pieType = vm.pieType;
+
+      console.log(vm, scope)
 
       var colors;
       var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
@@ -22,8 +25,8 @@ app.directive("pie", function(){
       if (vm.pieType === "macroPie") {
         colors = macroColors;
       } else {
-        // Use a different color pallet in the future.
-        colors = macroColors;
+        // Use a different color pallet for a different pie chart.
+        // colors = macroColors;
       }
 
       var color = d3.scale.ordinal().range(colors); 
@@ -38,7 +41,7 @@ app.directive("pie", function(){
        });
 
        // Creates a canvas and sets placeholder values
-       var svg = d3.select('div')
+       var svg = d3.select(element[0])
          .append('svg')
          .attr('width', width)
          .attr('height', height)
@@ -161,7 +164,7 @@ app.directive("pie", function(){
        });
 
       // Adds tooltip
-       var tooltip = d3.select('div')
+       var tooltip = d3.select(element[0])
          .append('div')          
          .attr('class', 'tooltip');
        tooltip.append('div').attr('class', 'label');
