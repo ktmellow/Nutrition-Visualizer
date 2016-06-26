@@ -5,7 +5,7 @@
   <input type="submit">
 </form>
 
-<div ng-show="vm.results">
+<div ng-if="vm.results">
   <h1>Results for {{ vm.results | lowercase }}: </h1>
-  <pie></pie>
+  <pie dataset="vm.macros" pieType="vm.macroPie"></pie>
 </div>

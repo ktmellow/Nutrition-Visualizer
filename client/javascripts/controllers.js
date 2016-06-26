@@ -1,19 +1,22 @@
-app.controller("NutritionController", ['NutritionService', 'D3Service', function(NutritionService, D3Service) {
+app.controller("NutritionController", ['NutritionService', function(NutritionService) {
   const vm = this;
   vm.form = {};
   vm.results;
   vm.data;
+  vm.macros;
+  vm.macroPie = "macroPie";
 
   vm.submit = function(){
     // console.log(vm.form.query);
     NutritionService.getData().then(function(data) {
-      vm.results = data.data.parsed_body.report.food.name;
       vm.data = data.data.parsed_body.report.food;
-      vm.data = NutritionService.getNutrients(vm.data);
+      vm.macros = NutritionService.getMacros(vm.data);
 
       // For development, remove later
       window.data = vm.data;
-      D3Service.pieMaker(NutritionService.getMacros(vm.data), 'macroPie');
+      window.macros = vm.macros
+
+      vm.results = data.data.parsed_body.report.food.name;
     });
   }
   
