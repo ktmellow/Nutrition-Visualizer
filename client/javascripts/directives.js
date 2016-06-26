@@ -13,19 +13,16 @@ app.directive("pie", function(){
     controllerAs: 'vm',
     bindToController: true,
     link: function(scope, element, attrs, vm) {
-      // var dataset = vm.dataset;
       var dataset = vm.dataset;
       var pieType = vm.pieType;
-
-      console.log(vm, scope, dataset, pieType)
 
       var colors;
       var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
 
-      if (vm.pieType === "macroPie") {
+      if (pieType === "macroPie") {
         colors = macroColors;
       } else {
-        // Use a different color pallet for a different pie chart.
+        // Use a different color pallet for a different pie chart type.
         // colors = macroColors;
       }
 
