@@ -1,7 +1,7 @@
 // Display Pie Chart of Macronutrients
 // Following tutorial from 
 // http://zeroviscosity.com/d3-js-step-by-step/step-1-a-basic-pie-chart
-app.directive("pie", function(){
+app.directive("fdPie", function($compile){
   return {
     templateUrl: "/client/partials/pie.html",
     restrict: 'AE',
@@ -9,13 +9,13 @@ app.directive("pie", function(){
       dataset: '<',
       pieType: '<'
     },
-    controller: function(){},
-    controllerAs: 'vm',
-    bindToController: true,
-    link: function(scope, element, attrs, vm) {
-      var dataset = vm.dataset;
-      var pieType = vm.pieType;
-
+    // controller: function(){},
+    // controllerAs: 'vm',
+    // bindToController: true,
+    link: function(scope, element, attrs) {
+      
+      var dataset = scope.dataset;
+      var pieType = scope.pieType;
       var colors;
       var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
 
@@ -167,6 +167,13 @@ app.directive("pie", function(){
        tooltip.append('div').attr('class', 'label');
        tooltip.append('div').attr('class', 'count'); 
        tooltip.append('div').attr('class', 'percent'); 
+    
+      // Gets Type error on line 35
+      // $compile(element[0])(scope);
+      // $compile(element)(scope);
+
     }
   }
-})
+});
+
+app.directive("fdSearch", function(){ return {} });

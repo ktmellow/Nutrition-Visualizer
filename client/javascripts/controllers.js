@@ -28,7 +28,6 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
   vm.getSuggestions = function() {
     NutritionService.getSuggestions(vm.form.query).then(function(data) {
       vm.search.suggestions = data.data.parsed_body.list.item;
-      console.log(data.data.parsed_body.list)
     });
   }
   
