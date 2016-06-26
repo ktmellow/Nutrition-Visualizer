@@ -6,8 +6,8 @@ app.directive("pie", function(){
     templateUrl: "/client/partials/pie.html",
     restrict: 'AE',
     scope: {
-      dataset: '<',
-      pieType: '<'
+      dataset: '=',
+      pieType: '='
     },
     controller: function(){},
     controllerAs: 'vm',
@@ -17,7 +17,7 @@ app.directive("pie", function(){
       var dataset = vm.dataset;
       var pieType = vm.pieType;
 
-      console.log(vm, scope)
+      console.log(vm, scope, dataset, pieType)
 
       var colors;
       var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
