@@ -4,8 +4,6 @@
 app.directive("fdPie", function(){
   // Draws the pie chart.
   var draw = function(dataset, pieType, element) {
-    
-
 
     var colors;
     var macroColors = ['#ECD078', '#D95B43', '#C02942', '#542437', '#53777A', '#CFF09E', '#A8DBA8', '#3B8686'];
@@ -172,8 +170,9 @@ app.directive("fdPie", function(){
 
         // Watch the dataset
         scope.$watch('dataset', function(newVal, oldVal, scope) {
-          // d3.select('fd-pie').remove();
+          
           // Updates pie chart
+          d3.select('svg').remove();
           draw(scope.dataset, scope.pieType, element);   
         }, false)
       }
@@ -181,4 +180,16 @@ app.directive("fdPie", function(){
   }
 });
 
-app.directive("fdSearch", function(){ return {} });
+app.directive("fdSearch", function(){ 
+  return {
+    templateUrl: "/client/partials/search.html",
+    scope: false,
+    // scope: {
+    //   query: '=',
+    //   submit: '&',
+    //   getSuggestions: '&',
+    //   search: '<'
+    // }
+    restrict: 'AE'
+  } 
+});
