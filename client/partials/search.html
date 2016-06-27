@@ -1,8 +1,8 @@
 <form name="form" ng-submit="submit()">
-  <input type="text" ng-model="query" ng-model-options="{ debounce: 500 }" ng-change="getSuggestions()">
+  <input type="text" ng-model="form.query" ng-model-options="{ debounce: 500 }" ng-change="getSuggestions()">
   <input type="submit">
 </form>
 
 <div ng-repeat="suggest in suggestions">
-  <p ng-click="scope.submit(suggest.ndbno)">{{ suggest.name }}</p>
+  <p ng-click="submit(suggest.ndbno)">{{ suggest.name }}</p>
 </div>

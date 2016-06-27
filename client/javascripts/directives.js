@@ -180,16 +180,26 @@ app.directive("fdPie", function(){
   }
 });
 
+app.directive("fdBar", function(){
+  return {
+    templateUrl: "/client/partials.bar.html",
+    restrict: 'AE',
+    scope: {
+      dataset: '<',
+      barType: '<'
+    }
+  }
+})
+
 app.directive("fdSearch", function(){ 
   return {
     templateUrl: "/client/partials/search.html",
-    scope: false,
-    // scope: {
-    //   query: '=',
-    //   submit: '&',
-    //   getSuggestions: '&',
-    //   search: '<'
-    // }
+    scope: {
+      form: '=',
+      submit: '<',
+      getSuggestions: '<',
+      search: '<'
+    },
     restrict: 'AE'
   } 
 });

@@ -7,6 +7,8 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
   vm.vitamins;
   vm.minerals;
   vm.macroPie = "macroPie";
+  vm.vitaminBar = "vitaminBar";
+  vm.mineralBar = "mineralBar"
   vm.search = {};
 
   vm.submit = function(id) {
