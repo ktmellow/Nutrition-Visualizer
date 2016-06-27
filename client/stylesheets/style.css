@@ -2,6 +2,12 @@ body {
   text-align: center;
 }
 
+/* pie chart */
+.chart {
+ width: 500px;
+ height: 500px;
+}
+
 h2 {
   margin: 2% auto;
   text-align: center;
@@ -41,3 +47,32 @@ rect.disabled {
   width: 80px;
   z-index: 10;
 }
+/*end pie chart*/
+
+
+/*bar graph*/
+#chart rect{
+  fill: #4aaeea;
+}
+ 
+#chart text{
+  fill: black;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+ 
+.axis text{
+  font: 10px sans-serif;
+}
+ 
+.axis path, .axis line{
+  fill: none;
+  stroke : #333;
+  shape-rendering: crispEdges;
+}
+ 
+body{
+  color : #333333;
+  padding-top : 50px;
+} 
+/*end bar graph*/

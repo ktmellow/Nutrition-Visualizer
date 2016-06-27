@@ -1,6 +1,6 @@
 <h2>Search for any food item:</h2>
 
-<!-- <fd-search get-suggestions="vm.getSuggestions" submit="vm.submit" query="vm.form.query" suggestions="vm.search.suggestions"></fd-search> -->
+<fd-search get-suggestions="vm.get-suggestions()" submit="vm.submit" query="vm.form.query" suggestions="vm.search.suggestions"></fd-search>
 
 <form name="form" ng-submit="vm.submit()">
   <input type="text" ng-model="vm.form.query" ng-model-options="{ debounce: 500 }" ng-change="vm.getSuggestions()">

@@ -51,6 +51,8 @@ app.get("/food/data/", function(req, res) {
     }
 }, function(error, response, body) {
     var parsed_body = JSON.parse(body);
+        console.log(parsed_body, body)
+
     res.format({
       json: function() {
         res.json({parsed_body})
