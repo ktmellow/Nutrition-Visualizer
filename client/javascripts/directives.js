@@ -6,7 +6,7 @@ app.directive("fdPie", function(){
   var draw = function(dataset, pieType, element) {
 
     var colors;
-    var macroColors = [ '#A8DBA8', '#D95B43', '#ECD078', '#C02942', '#542437', '#53777A', '#CFF09E', '#3B8686'];
+    var macroColors = [ '#0084A3', '#D95B43', '#ECD078', '#C02942', '#542437', '#53777A', '#CFF09E', '#3B8686'];
 
     if (pieType === "macroPie") {
       colors = macroColors;
