@@ -55,6 +55,18 @@ app.directive("fdPie", function(){
          return color(colors[i]);
        });
 
+      path.transition()
+      .ease('circle')
+        // .delay(function(d, i) { return 1000/d.value; })
+        .duration(function(d, i){ return 600; })
+        .attrTween('d', function(d) {
+             var i = d3.interpolate(d.startAngle+0.1, d.endAngle);
+             return function(t) {
+                 d.endAngle = i(t);
+               return arc(d);
+             }
+        });
+
      // Adds tooltip on mouseover. 
      path.on('mouseover', function(d) {
        var total = d3.sum(dataset.map(function(d) {
