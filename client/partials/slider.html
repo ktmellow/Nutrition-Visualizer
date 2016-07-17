@@ -1,0 +1,14 @@
+<div class="slider">
+  <h3>Total Vitamin Intake (%DRI)</h3>
+  <div class="slide" ng-repeat="image in images" ng-show="image.visible">
+    <img ng-src="{{image.src}}" />
+  </div>
+  <div class="arrows">
+    <a href="#" ng-click="prev()" class="arrow-left">
+      <img src="http://www.rfa.org/english/graphics/carousel-arrow-left.png" />
+    </a>
+    <a href="#" ng-click="next()" class="arrow-right">
+      <img src="http://www.rfa.org/english/graphics/carousel-arrow-right.png" />
+    </a>
+  </div>
+</div>

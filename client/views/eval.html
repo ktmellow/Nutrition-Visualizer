@@ -30,7 +30,7 @@
         <p ng-repeat="item in vm.data.foods">
           <span>{{item.amt}}{{item.userUnits}}</span>
           {{item.name}} 
-          <button ng-click="vm.remove(item)">x</button>
+          <button class="x" ng-click="vm.remove(item)">x</button>
         </p>
       </div>
       <button id="clear" ng-click="vm.clear()">clear</button>
@@ -39,8 +39,6 @@
 </div>  <!-- end sidenav -->
 
 <div class="chartsContainer" ng-if="vm.data.foods.length">
-
-
   <div class="row">
     <div class="one_third">
       <div class="vbar-container">
@@ -60,6 +58,13 @@
   </div>
   <div class="row">
     <div class="one_column">
+      <slider images="vm.images" />
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="one_column">
+
       <fd-bullets dataset="vm.data.totals.vitamins" bullet-type="'vitamin'"></fd-bullets>
     </div>
   </div>  
@@ -69,41 +74,5 @@
   <!-- <fd-gauges dataset="vm.data.totals.vitamins" gauge-type="'vitamins'"></fd-gauges>
   <fd-gauges dataset="vm.data.totals.minerals" gauge-type="'minerals'"></fd-gauges> -->
 </div>
-<!-- <div>
-  <div style="height: 100%; max-width: 600px; width:100%;">
-    <carousel interval="myInterval">
-      <slide ng-repeat="slide in slides" active="slide.active">
-        <div class="" style="max-width:600px;width=100%;min-width:300;margin:auto; padding: 0 50px">
-        <div>
-        <img ng-src="{{slide.image}}" width="33%" style="float:left;">
-        </div>
-        <div >
-        <img ng-src="{{slides[$index+1].image}}" width="33%" style="float:left;" >
-        </div>
-         <div >
-        <img ng-src="{{slides[$index+2].image}}" width="33%" style="float:left;" >
-        </div>
-        </div>
-      </slide>
-    </carousel>
-  </div> -->
-</div>
-<!-- div ng-controller="CarouselDemoCtrl">
-  <div style="height: 100%; max-width: 600px; width:100%;">
-    <carousel interval="myInterval">
-      <slide ng-repeat="slide in slides" active="slide.active">
-        <div class="" style="max-width:600px;width=100%;min-width:300;margin:auto; padding: 0 50px">
-        <div>
-        <img ng-src="{{slide.image}}" width="33%" style="float:left;">
-        </div>
-        <div >
-        <img ng-src="{{slides[$index+1].image}}" width="33%" style="float:left;" >
-        </div>
-         <div >
-        <img ng-src="{{slides[$index+2].image}}" width="33%" style="float:left;" >
-        </div>
-        </div>
-      </slide>
-    </carousel>
-  </div>
-</div> -->
+      
+

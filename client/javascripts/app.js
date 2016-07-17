@@ -1,4 +1,4 @@
-const app = angular.module("nutritionApp", ['ngRoute', 'ui.bootstrap']);
+const app = angular.module("nutritionApp", ['ngRoute', 'ngAnimate']);
 app.config(config)
 
 function config($routeProvider, $locationProvider) {

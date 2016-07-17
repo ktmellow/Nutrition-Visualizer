@@ -136,12 +136,26 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
 
   vm.getSuggestions = function() {
     NutritionService.getSuggestions(vm.form.query).then(function(data) {
-      window.suggests = data.data.parsed_body
-      console.log(data.data.parsed_body.list.item)
       vm.search.suggestions = data.data.parsed_body.list.item;
-      // vm.search.suggestions = data.data.parsed_body.list.item;
     });
   }
+
+  vm.images = [{
+      src: 'http://xitrum-placeholder.herokuapp.com/200/100',
+      title: 'Pic 1'
+    }, {
+      src: 'https://www.microsofttheater.com/assets/img/80s-weekend-night1-web-200x100-f1d6c83c2f.jpg',
+      title: 'Pic 2'
+    }, {
+      src: 'https://2013.nashville.wordcamp.org/files/2013/02/MetaCake-Logo-200x100.png',
+      title: 'Pic 3'
+    }, {
+      src: 'http://free.timeanddate.com/logo/view/timeanddate-logo-200x100.png',
+      title: 'Pic 4'
+    }, {
+      src: 'http://carouselrockinghorses.com.au/wp-content/uploads/2012/12/logo200x100.png',
+      title: 'Pic 5'
+    }];
 
     // vm.myInterval = 3000;
     // var slides = vm.slides = [];

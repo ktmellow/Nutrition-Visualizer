@@ -31,7 +31,6 @@ body {
 }
 
 html, body, #container {
-  text-align: center;
   height: 100%;
 }
 
@@ -340,6 +339,7 @@ fd-fill svg {
   background-color: #352B3E;
   min-height: 10%;
   position: fixed;
+  z-index: 10;
 }
 
 .nav h1, .nav h2, .nav h3, .nav h4, .nav h5 {
@@ -362,6 +362,7 @@ fd-fill svg {
   max-width: 20%;
   height: 100%;
   position: fixed;
+  z-index: 11;
 }
 
 .sidebar h1 {
@@ -397,6 +398,11 @@ fd-fill svg {
   height: 200px;
   max-height: 200px;
   overflow-y: scroll;
+  padding-left: 5%;
+}
+
+.x {
+  margin: 0;
 }
 
 .chartsContainer {
@@ -484,6 +490,7 @@ input {
   width: 80%;
   padding: 1.5% 0;
 }
+
 button {
     border: none;
     text-align: center;
@@ -541,4 +548,52 @@ input:active {
   color: #5d5564;
 }
 
+/* ngAnimate */
+.slide.ng-hide-add,
+.slide.ng-hide-remove {
+  -webkit-transition: all linear 0.5s;
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  display: block!important;
+}
+.slide.ng-hide-add.ng-hide-add-active,
+.slide.ng-hide-remove {
+  opacity: 0;
+}
+.slide.ng-hide-add,
+.slide.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
+/*end ngAnimate*/
 
+/*slider begin*/
+.center-grey {
+  background: #f2f2f2;
+}
+.slider {
+  position: relative;
+  width: 100%;
+  margin: 5% auto;
+  background-color: lightgray;
+  height: 150px;
+}
+.slide {
+  position: absolute;
+  top: 25%;
+  /* change left after charts added */
+  left: 40%;
+  opacity: 0.9;
+  box-shadow: 0px 0px 15px #999;
+}
+
+.arrows {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+.arrows img {
+  height: 32px;
+}
+
+/*slider end*/
