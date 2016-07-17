@@ -3,12 +3,31 @@ margin: 0;
 padding: 0;
 }
 
+@font-face {
+font-family: 'Open Sans';
+font-weight: 800;
+src: url("/client/vendor/fonts/Quicksand-Regular.otf") format("opentype");
+}
+
+@font-face {
+font-family: 'Open Sans Semi';
+src: url("/client/vendor/fonts/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Caviar';
+  font-weight: 400;
+  src: url("/client/vendor/fonts/CaviarDreams.ttf") format("truetype");
+}
+
 html {
     overflow: hidden;
 }
 
 body {
     overflow: auto;
+    font-family: 'Open Sans';
+    font-weight: 100;
 }
 
 html, body, #container {
@@ -21,13 +40,37 @@ html, body, #container, .sidebar {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Berkshire Swash';
   color: #352B3E;
   font-weight: bold;
   text-align: center;
   margin: 2% auto;
   text-align: center;
 }
+
+h1 {
+  font-family: 'Berkshire Swash';
+  font-size: 40px;
+}
+
+.sidebar h2, .sidebar h3 {
+  font-size: 20px;
+  font-family: 'Caviar';
+  font-weight: 500;
+}
+
+.results h2 {
+  font-size: 23px;
+}
+
+.chartsContainer h2, .chartsContainer h3 {
+  font-family: 'Open Sans Semi';
+  font-weight: bold;
+}
+
+h4, h5 {
+  font-family: 'Open Sans';
+  font-weight: bold;
+ }
 
 /* pie chart */
 .chart {
@@ -117,12 +160,12 @@ fd-gauge svg {
  
 #chart text{
   fill: black;
-  font: 10px sans-serif;
+  font: 10px 'Open Sans';
   text-anchor: end;
 }
  
 .axis text{
-  font: 10px sans-serif;
+  font: 10px Open Sans;
 }
  
 .axis path, .axis line{
@@ -139,7 +182,15 @@ fd-vbar {
 
 /*begin fill gauge*/
 .liquidFillGaugeText { 
-  font-family: Helvetica; font-weight: bold; 
+  font-family: 'Open Sans'; font-weight: bold; 
+}
+
+fd-fill h3 {
+  margin: -7.5% 0;
+}
+
+fd-fill svg {
+  padding: 17.5% 0;
 }
 /*end fill gauge*/
 
@@ -158,7 +209,7 @@ fd-vbar {
 
 
 /*begin bullet chart*/
-.bullet { font: 10px sans-serif; }
+.bullet { font: 10px Open Sans; }
 .bullet .marker { stroke: #000; stroke-width: 2px; }
 .bullet .tick line { stroke: #666; stroke-width: .5px; }
 .bullet .range { opacity: 0.6; }
@@ -207,6 +258,10 @@ fd-vbar {
   margin-left: 3%;
   height: 100%;
   background-color: white;
+}
+
+.one_column {
+  margin: 3% 3% 0 3%;
 }
  
 /* -- Column Row (aka Clearfix) -- */

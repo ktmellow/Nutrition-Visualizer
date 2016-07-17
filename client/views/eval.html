@@ -2,7 +2,7 @@
 <div class="sidebar">
   <div class="content">
     <h1 id="logo">Nutrition Visualizer</h1>
-    <h2>What did you eat today?</h2>
+    <h3>What did you eat today?</h3>
     <form name="form" ng-submit="vm.add()" class="sandwich">
     </form>
     <article>
@@ -24,7 +24,6 @@
         <input id="add" type="submit" value="add" />
       </form>
     </article>
-
     <div class="results" ng-if="vm.data.foods.length">
     <h2> Results for: </h2>
       <div class="result-items">
@@ -60,7 +59,9 @@
     </div>
   </div>
   <div class="row">
-    <fd-bullets dataset="vm.data.totals.vitamins" bullet-type="'vitamin'"></fd-bullets>
+    <div class="one_column">
+      <fd-bullets dataset="vm.data.totals.vitamins" bullet-type="'vitamin'"></fd-bullets>
+    </div>
   </div>  
   <div class="row">
     <fd-bullets dataset="vm.data.totals.minerals" bullet-type="'minerals'"></fd-bullets>
@@ -68,3 +69,41 @@
   <!-- <fd-gauges dataset="vm.data.totals.vitamins" gauge-type="'vitamins'"></fd-gauges>
   <fd-gauges dataset="vm.data.totals.minerals" gauge-type="'minerals'"></fd-gauges> -->
 </div>
+<div>
+  <div style="height: 100%; max-width: 600px; width:100%;">
+    <carousel interval="myInterval">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <div class="" style="max-width:600px;width=100%;min-width:300;margin:auto; padding: 0 50px">
+        <div>
+        <img ng-src="{{slide.image}}" width="33%" style="float:left;">
+        </div>
+        <div >
+        <img ng-src="{{slides[$index+1].image}}" width="33%" style="float:left;" >
+        </div>
+         <div >
+        <img ng-src="{{slides[$index+2].image}}" width="33%" style="float:left;" >
+        </div>
+        </div>
+      </slide>
+    </carousel>
+  </div>
+</div>
+<<!-- div ng-controller="CarouselDemoCtrl">
+  <div style="height: 100%; max-width: 600px; width:100%;">
+    <carousel interval="myInterval">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <div class="" style="max-width:600px;width=100%;min-width:300;margin:auto; padding: 0 50px">
+        <div>
+        <img ng-src="{{slide.image}}" width="33%" style="float:left;">
+        </div>
+        <div >
+        <img ng-src="{{slides[$index+1].image}}" width="33%" style="float:left;" >
+        </div>
+         <div >
+        <img ng-src="{{slides[$index+2].image}}" width="33%" style="float:left;" >
+        </div>
+        </div>
+      </slide>
+    </carousel>
+  </div>
+</div> -->

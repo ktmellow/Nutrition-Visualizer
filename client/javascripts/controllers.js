@@ -31,7 +31,7 @@ app.controller("NutritionController", ['NutritionService', function(NutritionSer
   }    
 }]);
 
-app.controller("EvalController", ['NutritionService', 'EvalService', 'ConversionService', '$route', function(NutritionService, EvalService, ConversionService, $route) {
+app.controller("EvalController", ['NutritionService', 'EvalService', 'ConversionService', '$route', function(NutritionService, EvalService, ConversionService, $route, ngAnimate) {
   const vm = this;
   vm.form = {
     amt: 100,
@@ -143,5 +143,33 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
     });
   }
 
+    vm.myInterval = 3000;
+    var slides = vm.slides = [];
+    vm.addSlide = function() {
+      var newWidth = 600 + slides.length + 1;
+      slides.push({
+        image: 'http://placekitten.com/' + newWidth + '/300',
+        text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+          ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+      });
+    };
+    for (var i=0; i<4; i++) {
+      vm.addSlide();
+    }
 }])
 
+// app.controller('CarouselDemoCtrl', function ($scope) {
+//   $scope.myInterval = 3000;
+//   var slides = $scope.slides = [];
+//   $scope.addSlide = function() {
+//     var newWidth = 600 + slides.length + 1;
+//     slides.push({
+//       image: 'http://placekitten.com/' + newWidth + '/300',
+//       text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+//         ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+//     });
+//   };
+//   for (var i=0; i<4; i++) {
+//     $scope.addSlide();
+//   }
+// });
