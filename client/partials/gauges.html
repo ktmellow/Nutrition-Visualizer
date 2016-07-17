@@ -1,0 +1,5 @@
+<h3 ng-if="gaugeType === 'vitaminGauge'" h3>Vitamin availability per 100g:</h3>
+<h3 ng-if="gaugeType === 'mineralGauge'" h3>Mineral availability per 100g:</h3>
+<div ng-repeat="item in dataset">
+  <fd-gauge dataset="item" gaugeType="gaugeType"></fd-gauge>
+</div>

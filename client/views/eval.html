@@ -1,0 +1,70 @@
+<div class="nav"></div>
+<div class="sidebar">
+  <div class="content">
+    <h1 id="logo">Nutrition Visualizer</h1>
+    <h2>What did you eat today?</h2>
+    <form name="form" ng-submit="vm.add()" class="sandwich">
+    </form>
+    <article>
+      <div class="singleLine">
+        <input id="amt" type="number" 
+               ng-model="vm.form.amt" />
+        <select class="styled-select" ng-init="vm.form.units = vm.options[0]" 
+                ng-model="vm.form.units" 
+                ng-options="option for option in vm.options">
+        </select> 
+      </div>
+      <form class='autocomplete' ng-submit="vm.add(vm.search.pick)">
+        <input style="font-family:Arial, FontAwesome" data-autocomplete='true' ng-attr-placeholder='{{vm.search.placeholder}}' type='text' ng-model="vm.form.query" ng-change="vm.getSuggestions()">
+        <div class='autocomplete-popup active'>
+          <ul class='autocomplete-list'>
+            <li ng-repeat="suggest in vm.search.suggestions" ng-click="vm.search.pick = suggest.ndbno; vm.form.query=''; vm.search.suggestions=''; vm.search.placeholder=suggest.name">{{suggest.name}}</li>
+          </ul>
+        </div>
+        <input id="add" type="submit" value="add" />
+      </form>
+    </article>
+
+    <div class="results" ng-if="vm.data.foods.length">
+    <h2> Results for: </h2>
+      <div class="result-items">
+        <p ng-repeat="item in vm.data.foods">
+          <span>{{item.amt}}{{item.userUnits}}</span>
+          {{item.name}} 
+          <button ng-click="vm.remove(item)">x</button>
+        </p>
+      </div>
+      <button id="clear" ng-click="vm.clear()">clear</button>
+    </div>
+  </div>  <!-- end container -->
+</div>  <!-- end sidenav -->
+
+<div class="chartsContainer" ng-if="vm.data.foods.length">
+
+
+  <div class="row">
+    <div class="one_third">
+      <div class="vbar-container">
+        <fd-vbar dataset="vm.data.totals.macros" bar-type="macros"></fd-vbar>
+      </div>
+    </div>
+    <div class="one_third">
+      <div class="fill-container">
+        <fd-fill dataset="vm.data.totals.calories" fill-type="'calories'"></fd-fill>
+      </div>
+    </div>
+    <div class="one_third">
+    <div class="fill-container">
+      <fd-fill dataset="vm.data.totals.water" fill-type="'water'"></fd-fill>
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <fd-bullets dataset="vm.data.totals.vitamins" bullet-type="'vitamin'"></fd-bullets>
+  </div>  
+  <div class="row">
+    <fd-bullets dataset="vm.data.totals.minerals" bullet-type="'minerals'"></fd-bullets>
+  </div>
+  <!-- <fd-gauges dataset="vm.data.totals.vitamins" gauge-type="'vitamins'"></fd-gauges>
+  <fd-gauges dataset="vm.data.totals.minerals" gauge-type="'minerals'"></fd-gauges> -->
+</div>

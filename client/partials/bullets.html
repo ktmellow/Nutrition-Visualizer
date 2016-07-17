@@ -1,0 +1,5 @@
+<h3 ng-if="bulletType === 'vitamin'" h3>Vitamin availability per 100g:</h3>
+<h3 ng-if="bulletType === 'mineral'" h3>Mineral availability per 100g:</h3>
+<div ng-repeat="item in dataset">
+  <fd-bullet dataset="item"></fd-bullet>
+</div>

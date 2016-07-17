@@ -1,19 +1,20 @@
 <h2>Search for any food item:</h2>
 
-<fd-search get-suggestions="vm.getSuggestions" submit="vm.submit" form="vm.form" suggestions="vm.search.suggestions"></fd-search>
+<!-- <fd-search get-suggestions="vm.getSuggestions" submit="vm.submit" form="vm.form" suggestions="vm.search.suggestions"></fd-search> -->
 
-<!-- <form name="form" ng-submit="vm.submit()">
+<form name="form" ng-submit="vm.submit()">
   <input type="text" ng-model="vm.form.query" ng-model-options="{ debounce: 500 }" ng-change="vm.getSuggestions()">
   <input type="submit">
 </form>
 <div ng-repeat="suggest in vm.search.suggestions">
   <p ng-click="vm.submit(suggest.ndbno)">{{ suggest.name }}</p>
-</div> -->
+</div>
 
-<!-- To DO: Make Results a separate view -->
 <div ng-if="vm.results">
   <h2>Results for {{ vm.results | lowercase }}: </h2>
-  <fd-pie dataset="vm.macros" pie-type="vm.macroPie"></fd-pie>
-  <fd-bar dataset="vm.vitamins" bar-type="vm.vitaminBar"></fd-bar>
+  <fd-pie dataset="vm.macros" pie-type="'macroPie'"></fd-pie>
+  <fd-gauges dataset="vm.vitamins" gauge-type="'vitamins'"></fd-gauges>
+  <fd-gauges dataset="vm.minerals" gauge-type="'minerals'"></fd-gauges>
+  <fd-fill dataset="vm.calories" fill-type="'calories'"></fd-fill>
 </div>
 

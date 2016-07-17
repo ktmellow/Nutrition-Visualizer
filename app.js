@@ -21,7 +21,7 @@ app.use('/client', express.static('client'));
 
 app.get("/food/suggest", function(req, res) {
   var query = encodeURIComponent(req.query.q);
-  var search_url= `http://api.nal.usda.gov/ndb/search/?format=json&q=${query}&sort=n&max=10&offset=0&api_key=${api_key}`;
+  var search_url= `http://api.nal.usda.gov/ndb/search/?format=json&q=${query}&sort=n&max=30&offset=0&api_key=${api_key}`;
   request({
     url: search_url,
     method: 'GET',
@@ -62,7 +62,7 @@ app.get("/food/data/", function(req, res) {
 });
 
 // Landing page
-app.get("/", function(req, res) {
+app.get("*", function(req, res) {
   res.sendFile(__dirname + '/client/views/layout.html');
 });
 
