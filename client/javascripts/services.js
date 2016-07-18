@@ -39,7 +39,7 @@ app.service("NutritionService", function($http) {
     "Fluoride, F": {value: 4, units: "mg"},
     "Iron, Fe":  {value: 18, units: "mg"},
     "Iodine, I":  {value: 150, units: "µg"},
-    "Magnesium, Mn": {value: 400, units: "mg"},
+    "Magnesium, Mg": {value: 400, units: "mg"},
     "Manganese, Mn": {value: 2, units: "mg"},
     "Molybdenum, Mo":  {value: 75, units: "µg"},
     "Phosphorus, P": {value: 1000, units: "mg"},
@@ -341,7 +341,12 @@ app.service("FillChartService", function(){
               .y1(function(d) {
                   return (fillCircleRadius * 2 + waveHeight);
               });
-          var clipId = idGenerator("clipWave");
+
+          if(fillType === 'water') {
+            var clipId = idGenerator("waterclipWave");
+          } else {
+            var clipId = idGenerator("clipWave");
+          }
           var waveGroup = gaugeGroup.append("defs")
               .append("clipPath")
               .attr("id", clipId);
@@ -524,6 +529,14 @@ app.service('EvalService', function() {
 
 app.service('ConversionService', function() {
   return {
+    toArr: function(obj) {
+      var arr = [];
+      for (var prop in obj) {
+        arr.push(obj[prop]);
+      }
+      return arr;
+    },
+
     // Applies user input for units and amount and converts to grams
     // Must divide by 100 because all measurements are per 100g of food
     toGrams: function(nutrient, amt, units) {

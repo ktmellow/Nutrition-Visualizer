@@ -46,13 +46,17 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
   vm.minerals;
   vm.search = { placeholder: 'Search for food' };
 
-  vm.data = { foods: [], totals: {macros: {}, vitamins: {}, minerals: {}, calories: {}}};
+  vm.data = { foods: [], 
+              totals: {macros: {}, vitamins: {}, minerals: {}, calories: {}, water: {name: "Water", value: 0, unit: "g", dri: {value: "1900", units: "g"}}},
+              totalsarr: {vitamins: [], minerals: []}
+            };
 
   vm.add = function(id, amt, units) {
     var id = id || '01009';
     NutritionService.getData(id).then(function(data) {
       vm.foodData = data.data.parsed_body.report.food;
       window.foodData = vm.foodData;
+      console.log('incoming foodData', vm.foodData)
       vm.foodData.amt = vm.form.amt;
       vm.foodData.userUnits = vm.form.units;
       // vm.foodData.amt = amt;
@@ -85,8 +89,13 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
                                                          vm.form.amt,
                                                          vm.form.units,
                                                          ConversionService.toGrams);
-      vm.data.totals.water = vm.data.totals.macros["Water"];
-      console.log("changed", vm.data.totals);
+      vm.data.totalsarr.vitamins = ConversionService.toArr(vm.data.totals.vitamins);
+      vm.data.totalsarr.minerals = ConversionService.toArr(vm.data.totals.minerals);
+      window.data = vm.data;
+
+      if(vm.data.totals.macros["Water"]) {vm.data.totals.water = vm.data.totals.macros["Water"];}
+      
+      console.log("changed", vm.data);
     });
   }
 
@@ -120,70 +129,36 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
                                                          food.amt,
                                                          food.userUnits,
                                                          ConversionService.toGrams);
+      vm.data.totalsarr.vitamins = ConversionService.toArr(vm.data.totals.vitamins);
 
       vm.data.totals.calories = EvalService.subtractCalories(vm.data.totals.calories,
                                                              removeCalories,
                                                              food.amt,
                                                              food.userUnits,
                                                              ConversionService.toGrams);
+      vm.data.totalsarr.minerals = ConversionService.toArr(vm.data.totals.minerals);
 
       vm.data.totals.water = vm.data.totals.macros["Water"];
-
       vm.data.foods.splice(vm.data.foods.indexOf(food), 1);
+
+      window.data = vm.data;
     });
   }
 
 
-  vm.getSuggestions = function() {
-    NutritionService.getSuggestions(vm.form.query).then(function(data) {
-      vm.search.suggestions = data.data.parsed_body.list.item;
-    });
+  vm.getSuggestions = function(event) {
+    if((event.keyCode=="8" || event.keyCode=="46") && vm.form.query.length === 0) {
+      vm.search.suggestions = "";
+      return;
+    } else if (vm.form.query != ''){
+        NutritionService.getSuggestions(vm.form.query).then(function(data) {
+          try { 
+            vm.search.suggestions = data.data.parsed_body.list.item;
+          } catch(ignore) { };
+        });
+    }
   }
 
-  vm.images = [{
-      src: 'http://xitrum-placeholder.herokuapp.com/200/100',
-      title: 'Pic 1'
-    }, {
-      src: 'https://www.microsofttheater.com/assets/img/80s-weekend-night1-web-200x100-f1d6c83c2f.jpg',
-      title: 'Pic 2'
-    }, {
-      src: 'https://2013.nashville.wordcamp.org/files/2013/02/MetaCake-Logo-200x100.png',
-      title: 'Pic 3'
-    }, {
-      src: 'http://free.timeanddate.com/logo/view/timeanddate-logo-200x100.png',
-      title: 'Pic 4'
-    }, {
-      src: 'http://carouselrockinghorses.com.au/wp-content/uploads/2012/12/logo200x100.png',
-      title: 'Pic 5'
-    }];
-
-    // vm.myInterval = 3000;
-    // var slides = vm.slides = [];
-    // vm.addSlide = function() {
-    //   var newWidth = 600 + slides.length + 1;
-    //   slides.push({
-    //     image: 'http://placekitten.com/' + newWidth + '/300',
-    //     text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-    //       ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-    //   });
-    // };
-    // for (var i=0; i<4; i++) {
-    //   vm.addSlide();
-    // }
 }])
 
-// app.controller('CarouselDemoCtrl', function ($scope) {
-//   $scope.myInterval = 3000;
-//   var slides = $scope.slides = [];
-//   $scope.addSlide = function() {
-//     var newWidth = 600 + slides.length + 1;
-//     slides.push({
-//       image: 'http://placekitten.com/' + newWidth + '/300',
-//       text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-//         ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-//     });
-//   };
-//   for (var i=0; i<4; i++) {
-//     $scope.addSlide();
-//   }
-// });
+

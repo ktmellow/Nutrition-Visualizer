@@ -1,4 +1,5 @@
 const app = angular.module("nutritionApp", ['ngRoute', 'ngAnimate']);
+// const app = angular.module("nutritionApp", ['ngRoute', 'ngAnimate', 'count-to']);
 app.config(config)
 
 function config($routeProvider, $locationProvider) {

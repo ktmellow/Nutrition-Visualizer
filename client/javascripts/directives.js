@@ -408,14 +408,16 @@ app.directive("fdFill", function(FillChartService, $compile, $location){
             textSize: 0.6,
             minValue: 0.3,
             maxValue: 1900,
-            displayPercent: false
+            displayPercent: false,
+            circleColor: "#117899",
+            waveColor: "#1395BA"
           }, element, fillType);
         } else if ( fillType === "calories" ) {
 
           // TO DO: change maxValue if man 
           d3.select(element[0]).append('svg').call(FillChartService.liquidfillgauge, dataset.value, {
             circleThickness: 0.1,
-            circleColor: "#E9705B",
+            circleColor: "#D94E1F",
             textColor: "#E9705B",
             waveTextColor: "#e83f25",
             waveColor: "#FFDDDD",
@@ -647,7 +649,7 @@ app.directive("fdBullet", function() {
   return {
     templateUrl: "/client/partials/bullet.html",
     scope: {
-      dataset: '<'
+      dataset: '<',
     },
     restrict: 'AE',
     compile: function(element, attrs) {
@@ -894,7 +896,7 @@ app.directive("fdBullet", function() {
           top: 5,
           right: 20,
           bottom: 20,
-          left: 80
+          left: 60
         };
 
         var width = 300 - margin.left - margin.right;
@@ -948,20 +950,19 @@ app.directive("fdBullet", function() {
                 tooltip.append('div').attr('class', 'percent');  
 
                // Adds tooltip on mouseover. 
-               svg.selectAll('.measure').on('mouseover', function(d) {
+               d3.select(element[0]).select('.measure').on('mouseover', function(d) {
                  tooltip.select('.label').html(dataset.name);
                  tooltip.select('.count').html(dataset.value + " " + dataset.unit)
                  tooltip.select('.percent').html( d3.format('.2f')(dataset.value/dataset.dri.value * 100) + '%')
                  tooltip.style('display', 'block');
                })
-               // .each(function(d) { this._current = dataset; });    
 
-               svg.selectAll('.measure').on('mouseout', function() {
+               d3.select(element[0]).select('.measure').on('mouseout', function() {
                  tooltip.style('display', 'none');
                });
 
                // Tooltip will move with mouse
-               svg.selectAll('.measure').on('mousemove', function(d) {
+               d3.select(element[0]).select('.measure').on('mousemove', function(d) {
                  tooltip.style('top', (d3.event.layerY + 10) + 'px')
                    .style('left', (d3.event.layerX + 10) + 'px');
                });
@@ -996,27 +997,65 @@ app.directive('slider', function($timeout) {
     restrict: 'AE',
     replace: true,
     scope: {
-      images: '='
+      dataset: '=',
+      type: '<'
     },
+    // scope undefined, not passed in correctly
     link: function(scope, elem, attrs) {
       scope.currentIndex = 0; // Initially the index is at the first image
 
       scope.next = function() {
-        scope.currentIndex < scope.images.length - 1 ? scope.currentIndex++ : scope.currentIndex = 0;
+        scope.currentIndex+3 < scope.dataset.length - 1 ? scope.currentIndex+=3 : scope.currentIndex = 0;
       };
 
       scope.prev = function() {
-        scope.currentIndex > 0 ? scope.currentIndex-- : scope.currentIndex = scope.images.length - 1;
+        scope.currentIndex > 0 ? scope.currentIndex-=3 : scope.currentIndex = scope.dataset.length - 1;
       };
 
       scope.$watch('currentIndex', function() {
-        scope.images.forEach(function(image) {
-          image.visible = false; // make every image invisible
+        scope.dataset.forEach(function(data) {
+          data.visible = false; // make every image invisible
         });
 
-        scope.images[scope.currentIndex].visible = true; // make the current image visible
+        scope.dataset[scope.currentIndex].visible = true; // make the current image visible
+        if(scope.dataset.length > scope.currentIndex+1) {scope.dataset[scope.currentIndex+1].visible = true;}
+        if(scope.dataset.length > scope.currentIndex+2) {scope.dataset[scope.currentIndex+2].visible = true;}
       });
     },
     templateUrl: '/client/partials/slider.html'
   };
 });
+
+app.directive('counter', function($timeout) {
+  return {
+    restrict: 'E',
+    replace: false,
+    scope: {
+      countmax: '<',
+      header: '<',
+      units: '<'
+    },
+    templateUrl: '/client/partials/counter.html',
+    link: function(scope, element, attr) {
+
+      var timer;
+      var increment;
+        scope.count = 0;
+
+        var updateCounter = function() {
+            increment = Math.floor(Math.random() * (8)) + 1;
+            if(scope.count + increment > scope.countmax) { 
+              scope.count = scope.countmax; 
+            } else {
+              scope.count += increment;
+            }
+            timer = $timeout(updateCounter, 0);
+            if(scope.count === scope.countmax) {
+              $timeout.cancel(timer)
+            }
+        };
+        updateCounter();
+    }
+  }
+
+})

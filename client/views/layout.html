@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="nutritionApp">
+<html lang="en" ng-app="nutritionApp" ng-cloak>
 <head>
   <meta charset="UTF-8">
   <title>Nutrition Vis</title>
@@ -12,8 +12,8 @@
 
   <base href="/">
 </head>
-<body>
-  <div ng-view></div>
+<body ng-cloak>
+  <div ng-view ng-cloak></div>
   
   <script src="https://d3js.org/d3.v3.js" charset="utf-8"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
@@ -25,5 +25,6 @@
   <script src="client/javascripts/services.js"></script>
   <script src="client/javascripts/controllers.js"></script>
   <script src="client/javascripts/directives.js"></script>
+  <script src="client/javascripts/angular.count-to.js"></script>
 </body>
 </html>

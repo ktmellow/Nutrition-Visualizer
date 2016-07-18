@@ -71,7 +71,7 @@ h4, h5 {
   font-weight: bold;
  }
 
-/* pie chart */
+ pie chart 
 .chart {
  width: 500px;
  height: 500px;
@@ -88,7 +88,7 @@ h4, h5 {
   font-size: 10px;
 }
 
-rect {
+.legend rect {
   cursor: pointer;
   stroke-width: 2;
 }
@@ -110,7 +110,7 @@ rect.disabled {
   top: 95px;
   z-index: 10;
 }
-/*end pie chart*/
+/*end pie chart
 
 /*begin gauge*/
 fd-gauge {
@@ -176,6 +176,56 @@ fd-gauge svg {
 fd-vbar {
   color : #333333;
 } 
+
+fd-vbar svg {
+  padding-left: 10%;
+}
+
+fd-vbar rect:first-child {
+  fill: #0F5B78;
+}
+
+fd-vbar rect:nth-child(2) {
+  fill: #C02E1D;
+}
+
+fd-vbar rect:nth-child(3) {
+  fill: #EF8B2C;
+}
+
+fd-vbar rect:nth-child(4) {
+  fill: #EBC844;
+}
+
+fd-vbar rect:nth-child(5) {
+  fill: #A2B86C;
+}
+fd-vbar rect:nth-child(6) {
+  fill: #5CA793;
+}
+
+/*fd-vbar rect:first-child {
+  fill: #FDF035;
+}
+
+fd-vbar rect:nth-child(2) {
+  fill: #8EC526;
+}
+
+fd-vbar rect:nth-child(3) {
+  fill: #1AA89D;
+}
+
+fd-vbar rect:nth-child(4) {
+  fill: #2F3590;
+}
+
+fd-vbar rect:nth-child(5) {
+  fill: #912D8D;
+}
+fd-vbar rect:nth-child(6) {
+  fill: #FEC42E;
+}*/
 /*end bar graph*/
 
 
@@ -189,7 +239,7 @@ fd-fill h3 {
 }
 
 fd-fill svg {
-  padding: 17.5% 0;
+padding: 17.5% 0;
 }
 /*end fill gauge*/
 
@@ -211,12 +261,18 @@ fd-fill svg {
 .bullet { font: 10px Open Sans; }
 .bullet .marker { stroke: #000; stroke-width: 2px; }
 .bullet .tick line { stroke: #666; stroke-width: .5px; }
-.bullet .range { opacity: 0.6; }
+.bullet .range { opacity: 1; }
+.bullet .range.s0 { fill: #58be84;  }
+.bullet .range.s1 { fill: #f9d54d; }
+.bullet .range.s2 { fill: #D94E1F;}
+/*
 .bullet .range.s0 { fill: #A2DDBB; }
 .bullet .range.s1 { fill: #FFD88C; }
-.bullet .range.s2 { fill: #FF8A8A; }
+.bullet .range.s2 { fill: #FF8A8A; }*/
 .bullet .range.s3 { fill: darkred; }
-.bullet .measure { fill:  #857f8b; }
+.bullet .measure { 
+  fill:  #3e352b; 
+}
 .bullet .title { font-size: 14px; font-weight: bold; color: #352B3E;}
 .bullet .subtitle { fill: #999; }
 /*end bullet chart*/
@@ -253,14 +309,14 @@ fd-fill svg {
 .one_half,.one_third,.two_third,
 .three_fourth,.one_fourth,.one_column,
 .full_column {
-  float:left;
   margin-left: 3%;
-  height: 100%;
   background-color: white;
+  float: left;
+  height: 100%;
 }
 
 .one_column {
-  margin: 3% 3% 0 3%;
+margin: 3% 3% 0 3%;
 }
  
 /* -- Column Row (aka Clearfix) -- */
@@ -270,6 +326,10 @@ fd-fill svg {
   content: "";
   display: table;
   clear: both;
+}
+
+.row:last-child {
+  margin-bottom: 3%;
 }
 
 @media (max-width: 650px) {
@@ -439,7 +499,7 @@ option {
    width: 26%;
    border: none;
    border-radius: 0;
-   border-bottom: 2.5px solid darkgray;
+   border-bottom: 2.5px solid #cdc0c6;
    height: 33px;
    overflow: hidden;
    background: url(new_arrow.png) no-repeat right #ddd;
@@ -461,7 +521,7 @@ input {
   background-color: white;
   color: #352B3E;
   border: none;
-  border-bottom: 2px solid gray;
+  border-bottom: 2px solid #cdc0c6;
   outline: 0;
   height: 32px;
   width: 100%;
@@ -480,8 +540,9 @@ input {
 }
 
 #add {
-  border-bottom: 2px solid white;
-  background: darkgray;
+  border-bottom: 2px solid #EAE9EB;
+  color: white;
+  background: #BA4870;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -501,7 +562,7 @@ button {
     cursor: pointer;
     transition: all .15s;
     color: white;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid #cdc0c6;
 }
 
 button:active {
@@ -515,7 +576,7 @@ input:active {
 }
 
 .autocomplete-popup {
-  background: #eee;
+  background: #fdf6f4;
   max-height: 0;
   max-width: 100%;
   overflow: scroll;
@@ -539,7 +600,7 @@ input:active {
 }
 
 .autocomplete-list li {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid white;
   text-transform: capitalize;
   padding: .5rem;
   margin: auto;
@@ -549,21 +610,69 @@ input:active {
 }
 
 /* ngAnimate */
-.slide.ng-hide-add,
-.slide.ng-hide-remove {
-  -webkit-transition: all linear 0.5s;
-  -moz-transition: all linear 0.5s;
-  -o-transition: all linear 0.5s;
-  transition: all linear 0.5s;
-  display: block!important;
+.slide.ng-enter {
+  transition:1.8s;
+  opacity:0;
+  transform:translateX(-100%);
 }
-.slide.ng-hide-add.ng-hide-add-active,
-.slide.ng-hide-remove {
-  opacity: 0;
+
+.slide.ng-enter.ng-enter-active {
+  opacity:1;
+  transform:translateX(0);
 }
-.slide.ng-hide-add,
-.slide.ng-hide-remove.ng-hide-remove-active {
-  opacity: 1;
+
+/*.slide.ng-leave {
+  transition:.5s;
+  opacity:0;
+  /*transform:translateX(0);*/
+}
+*/
+.slide.ng-leave.ng-leave-active {
+  opacity:1;
+  transform:translateX(100%);
+}
+.result-item.ng-enter {
+  transition:0.4s;
+  opacity:0;
+  transform:translateY(-100%);
+}
+
+.result-item.ng-enter.ng-enter-active {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.result-item.ng-leave {
+  transition:0.4s;
+  opacity:0;
+  transform:translateX(0);
+}
+
+.result-item.ng-leave.ng-leave-active {
+  opacity:0.1;
+  transform:translateX(-100%);
+}
+
+.sidebar.ng-enter {
+  transition:0.5s;
+  opacity:1;
+  transform:translateX(-100%);
+}
+
+.sidebar.ng-enter.ng-enter-active {
+  opacity:1;
+  transform:translateX(0);
+}
+
+.sidebar.ng-leave {
+  transition:0.4s;
+  opacity:0;
+  transform:translateX(0);
+}
+
+.sidebar.ng-leave.ng-leave-active {
+  opacity:0.1;
+  transform:translateX(100%);
 }
 /*end ngAnimate*/
 
@@ -572,28 +681,66 @@ input:active {
   background: #f2f2f2;
 }
 .slider {
+  height: 100%;
+  min-height: 200px;
   position: relative;
   width: 100%;
-  margin: 5% auto;
-  background-color: lightgray;
+  margin: 1% auto;
+  /*background-color: lightgray;*/
   height: 150px;
-}
-.slide {
-  position: absolute;
-  top: 25%;
-  /* change left after charts added */
-  left: 40%;
-  opacity: 0.9;
-  box-shadow: 0px 0px 15px #999;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.arrows {
-  position: absolute;
-  top: 10px;
-  right: 20px;
+.slider:after {
+clear: both;
+display: table;
+content: "";
 }
+
+.slide {
+  opacity: 0.9;
+  /*box-shadow: 2px 2px 3px #999;*/
+    overflow-x: hidden;
+  overflow-y: hidden;
+  top: 25%;
+  float: left;
+}
+
+.slide:first-child { 
+    margin-left: 30px;
+}
+
+
+.slider .slide {
+    position: relative;
+    top: 0;
+    left: 27px;
+}
+
+.arrow-left {
+  position:absolute;
+  z-index: 2;
+  opacity: 0.15;
+  color: #0F5B78;
+}
+
+.arrow-right {
+  position: absolute;
+  right: 0;
+  margin-right: -2%;
+  z-index: 2;
+  opacity: 0.15;
+  color: #0F5B78;
+}
+
 .arrows img {
-  height: 32px;
+  height: 80px;
 }
 
 /*slider end*/
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}*/
