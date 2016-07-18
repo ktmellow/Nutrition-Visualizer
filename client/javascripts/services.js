@@ -75,7 +75,7 @@ app.service("NutritionService", function($http) {
 
     getSuggestions: function(query) {
       console.log(query, 'query')
-      return $http.get('http://localhost:3000/food/suggest?q=' + encodeURIComponent(query));
+      return $http.get('https://nutrition-vis.herokuapp.com/food/suggest?q=' + encodeURIComponent(query));
     },
 
     // Makes request to backend with sample API request
@@ -83,7 +83,7 @@ app.service("NutritionService", function($http) {
       // TO DO: 
       // Form validations?
 
-      return $http.get('http://localhost:3000/food/data?id='+id);
+      return $http.get('https://nutrition-vis.herokuapp.com/food/data?id='+id);
     },
 
     // Collects only the data necessary for the data visualization
