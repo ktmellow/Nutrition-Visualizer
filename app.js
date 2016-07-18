@@ -13,7 +13,6 @@ if(process.env.NODE_ENV !== "production"){
 } else {
   var api_key = process.env.SESSION_SECRET;
 }
-// var api_key =  process.env.SESSION_SECRET }));
 
 // Middleware
 app.use(bodyParser.json({type:"application/json"}));

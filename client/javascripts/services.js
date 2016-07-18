@@ -1,4 +1,4 @@
-app.service("NutritionService", function($http) {
+app.service("NutritionService", function($http, $location) {
   const dri = {
     "Water": {value: 1900, units: 'g'},
     "Sugars, total": {value: 25, units: "g"},
@@ -75,15 +75,17 @@ app.service("NutritionService", function($http) {
 
     getSuggestions: function(query) {
       console.log(query, 'query')
-      return $http.get('https://nutrition-vis.herokuapp.com/food/suggest?q=' + encodeURIComponent(query));
+      return $http.get(location.hostname+ encodeURIComponent(query));
+      // return $http.get('http://localhost:3000/food/suggest?q='+ encodeURIComponent(query));
+      // return $http.get('https://nutrition-vis.herokuapp.com/food/suggest?q='+ encodeURIComponent(query));
     },
 
     // Makes request to backend with sample API request
     getData: function(id) {
-      // TO DO: 
-      // Form validations?
+      return $http.get(location.hostname+'/food/data?id='+id);
+      // return $http.get('http://localhost:3000/food/data?id='+id);
+      // return $http.get('https://nutrition-vis.herokuapp.com/food/data?id='+id);
 
-      return $http.get('https://nutrition-vis.herokuapp.com/food/data?id='+id);
     },
 
     // Collects only the data necessary for the data visualization
