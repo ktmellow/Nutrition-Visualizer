@@ -9,14 +9,16 @@ var port = process.env.PORT || 3000;
 
 //  Using dotenv to keep my API key a secret
 if(process.env.NODE_ENV !== "production"){
-    var api_key = require('dotenv').load().SECRET;
+  var api_key = require('dotenv').load().SECRET;
+} else {
+  var api_key = process.env.SESSION_SECRET;
 }
+// var api_key =  process.env.SESSION_SECRET }));
 
 // Middleware
 app.use(bodyParser.json({type:"application/json"}));
 app.use(methodOverride('_method'));
 app.use('/client', express.static('client'));
-app.use(session({secret: process.env.SESSION_SECRET }));
 
 // Routes
 // TO DO: Refactor /food/data
