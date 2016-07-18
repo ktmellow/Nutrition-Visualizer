@@ -19,9 +19,9 @@
                ng-attr-placeholder='{{vm.search.placeholder}}'
                ng-model="vm.form.query" 
                ng-Keyup="vm.getSuggestions($event)">
-        <div class='autocomplete-popup active'>
+        <div class='autocomplete-popup' ng-class="{'active': vm.active}">
           <ul class='autocomplete-list'>
-            <li ng-repeat="suggest in vm.search.suggestions" ng-click="vm.search.pick = suggest.ndbno; vm.form.query=''; vm.search.suggestions=''; vm.search.placeholder=suggest.name">{{suggest.name}}</li>
+            <li ng-repeat="suggest in vm.search.suggestions" ng-click="vm.search.pick = suggest.ndbno; vm.form.query=''; vm.search.suggestions=''; vm.search.placeholder=suggest.name; vm.active=false;">{{suggest.name}}</li>
           </ul>
         </div>
         <input id="add" type="submit" value="add" />

@@ -581,9 +581,9 @@ input:active {
   max-width: 100%;
   overflow: scroll;
   position: absolute;
-  width: 80%;
-  -webkit-transition: max-height .3s ease;
-  transition: max-height .3s ease;
+  width: 84%;
+  /*-webkit-transition: max-height .3s ease;*/
+  /*transition: max-height .3s ease;*/
   cursor: pointer;
   border-radius: 0 0 3px 3px;
 }

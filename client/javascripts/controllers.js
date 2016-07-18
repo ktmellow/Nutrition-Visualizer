@@ -37,7 +37,8 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
     amt: 100,
     units: 'g'
   };
-  vm.options = ['g', 'oz', 'fl oz']
+  vm.options = ['g', 'oz', 'fl oz'];
+  vm.active = false;
   vm.foodData;
   vm.results;
   vm.macros;
@@ -52,6 +53,7 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
             };
 
   vm.add = function(id, amt, units) {
+    vm.active = false;
     var id = id || '01009';
     NutritionService.getData(id).then(function(data) {
       vm.foodData = data.data.parsed_body.report.food;
@@ -149,13 +151,18 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
   vm.getSuggestions = function(event) {
     if((event.keyCode=="8" || event.keyCode=="46") && vm.form.query.length === 0) {
       vm.search.suggestions = "";
+      vm.active = false;
       return;
     } else if (vm.form.query != ''){
+      console.log("foo")
+        vm.active = true
         NutritionService.getSuggestions(vm.form.query).then(function(data) {
           try { 
             vm.search.suggestions = data.data.parsed_body.list.item;
           } catch(ignore) { };
         });
+    } else {
+      vm.active = false
     }
   }
 

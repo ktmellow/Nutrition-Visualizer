@@ -3,13 +3,11 @@
   <h3 ng-if="type === 'minerals'">Total Mineral Intake (%DRI)</h3>
     <a href="#" ng-click="prev()" class="arrow-left">
       <i class="fa fa-chevron-left fa-5x" aria-hidden="true"></i>
-
     </a>
     <a href="#" ng-click="next()" class="arrow-right">
       <i class="fa fa-chevron-right fa-5x fa-fw" aria-hidden="true"></i>
     </a>
-
-  <div class="slide" ng-repeat="data in dataset" ng-if="data.visible">
-      <fd-bullet dataset="data"></fd-bullet>
-  </div>
+    <div class="slide" ng-repeat="data in dataset" ng-if="data.visible">
+        <fd-bullet dataset="data"></fd-bullet>
+    </div>
 </div>
