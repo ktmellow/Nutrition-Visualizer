@@ -75,7 +75,7 @@ app.service("NutritionService", function($http, $location) {
 
     getSuggestions: function(query) {
       console.log(query, 'query')
-      return $http.get(location.hostname+ encodeURIComponent(query));
+      return $http.get(location.hostname + '/food/suggest?q=' + encodeURIComponent(query));
       // return $http.get('http://localhost:3000/food/suggest?q='+ encodeURIComponent(query));
       // return $http.get('https://nutrition-vis.herokuapp.com/food/suggest?q='+ encodeURIComponent(query));
     },
