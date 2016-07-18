@@ -14,6 +14,7 @@ if(process.env.NODE_ENV !== "production"){
 app.use(bodyParser.json({type:"application/json"}));
 app.use(methodOverride('_method'));
 app.use('/client', express.static('client'));
+app.use(session({secret: process.env.SESSION_SECRET }));
 
 // Routes
 // TO DO: Refactor /food/data
