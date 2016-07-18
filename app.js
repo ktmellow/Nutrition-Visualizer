@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const request = require('request');
 
+var port = process.env.PORT || 3000;
+
 //  Using dotenv to keep my API key a secret
 if(process.env.NODE_ENV !== "production"){
     var api_key = require('dotenv').load().SECRET;
@@ -70,3 +72,4 @@ app.get("*", function(req, res) {
 app.listen(3000, function() {
   console.log("Server is listening on port 3000...");
 });
+
