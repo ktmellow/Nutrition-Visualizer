@@ -3,6 +3,28 @@ margin: 0;
 padding: 0;
 }
 
+svg {
+  shape-rendering: crispEdges;
+}
+line {
+  shape-rendering: crispEdges;
+}
+rect { 
+  shape-rendering: crispEdges;
+}
+
+path { 
+  shape-rendering: crispEdges;
+}
+
+circle { 
+  shape-rendering: crispEdges;
+}
+
+text { 
+  shape-rendering: crispEdges;
+}
+
 ::-webkit-scrollbar {
   display: none; 
 } 

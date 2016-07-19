@@ -599,7 +599,7 @@ app.directive("fdVbar", function() {
           }));
           var percent = Math.round(1000 * d.value / total) / 10;
           tooltip.select('.label').html(d.name);
-          tooltip.select('.count').html(d.value + " " + d.unit)
+          tooltip.select('.count').html(d3.format('.2r')(d.value) + " " + d.unit)
           tooltip.select('.percent').html( d3.format('.2f')(d.value/d.dri.value * 100) + '%')
           tooltip.style('display', 'block');
         })
@@ -660,7 +660,7 @@ app.directive("fdBullet", function() {
       d3.bullet = function() {
           var orient = "left"; // TODO top & bottom
           var reverse = false;
-          var duration = 0;
+          var duration = 1000;
           var ranges = bulletRanges;
           var markers = bulletMarkers;
           var measures = bulletMeasures;
@@ -702,12 +702,12 @@ app.directive("fdBullet", function() {
                 .attr("height", height)
                 .attr("x", reverse ? x0 : 0)
                 .transition()
-                .duration(duration)
+                .duration(0)
                 .attr("width", w1)
                 .attr("x", reverse ? x1 : 0);
 
               range.transition()
-                .duration(duration)
+                .duration(0)
                 .attr("x", reverse ? x1 : 0)
                 .attr("width", w1)
                 .attr("height", height);
@@ -747,12 +747,12 @@ app.directive("fdBullet", function() {
                 .attr("y1", height / 6)
                 .attr("y2", height * 5 / 6)
                 .transition()
-                .duration(duration)
+                .duration(0)
                 .attr("x1", x1)
                 .attr("x2", x1);
 
               marker.transition()
-                .duration(duration)
+                .duration(0)
                 .attr("x1", x1)
                 .attr("x2", x1)
                 .attr("y1", height / 6)
@@ -785,13 +785,13 @@ app.directive("fdBullet", function() {
 
               // Transition the entering ticks to the new scale, x1.
               tickEnter.transition()
-                .duration(duration)
+                .duration(0)
                 .attr("transform", bulletTranslate(x1))
                 .style("opacity", 1);
 
               // Transition the updating ticks to the new scale, x1.
               var tickUpdate = tick.transition()
-                .duration(duration)
+                .duration(0)
                 .attr("transform", bulletTranslate(x1))
                 .style("opacity", 1);
 
@@ -804,7 +804,7 @@ app.directive("fdBullet", function() {
 
               // Transition the exiting ticks to the new scale, x1.
               tick.exit().transition()
-                .duration(duration)
+                .duration(0)
                 .attr("transform", bulletTranslate(x1))
                 .style("opacity", 1e-6)
                 .remove();
