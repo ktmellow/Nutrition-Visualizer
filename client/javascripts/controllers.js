@@ -37,7 +37,7 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
     amt: 100,
     units: 'g'
   };
-  vm.options = ['g', 'oz', 'fl oz'];
+  vm.options = ['g', 'oz', 'fl oz', 'ml'];
   vm.active = false;
   vm.foodData;
   vm.results;
