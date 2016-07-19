@@ -75,15 +75,15 @@ app.service("NutritionService", function($http, $location) {
 
     getSuggestions: function(query) {
       console.log(query, 'query')
-      return $http.get(location.hostname + '/food/suggest?q=' + encodeURIComponent(query));
-      // return $http.get('http://localhost:3000/food/suggest?q='+ encodeURIComponent(query));
+      // return $http.get(location.hostname + '/food/suggest?q=' + encodeURIComponent(query));
+      return $http.get('http://localhost:3000/food/suggest?q='+ encodeURIComponent(query));
       // return $http.get('https://nutrition-vis.herokuapp.com/food/suggest?q='+ encodeURIComponent(query));
     },
 
     // Makes request to backend with sample API request
     getData: function(id) {
-      return $http.get(location.hostname+'/food/data?id='+id);
-      // return $http.get('http://localhost:3000/food/data?id='+id);
+      // return $http.get(location.hostname + '/food/data?id='+id);
+      return $http.get('http://localhost:3000/food/data?id='+id);
       // return $http.get('https://nutrition-vis.herokuapp.com/food/data?id='+id);
 
     },
@@ -460,11 +460,15 @@ app.service("FillChartService", function(){
           var tooltip = d3.select(element[0])
             .append('div')          
             .attr('class', 'tooltip'); 
-          tooltip.append('div').attr('class', 'percent');   
+          // tooltip.append('div').attr('class', 'percent');   
+          tooltip.append('div').attr('class', 'women');
+          tooltip.append('div').attr('class', 'men');
 
           // Adds tooltip on mouseover. 
           d3.select(this).select('circle').on('mouseover', function(d) {
-            tooltip.select('.percent').html(d3.format('.1f')(100*value/settings.maxValue) + "% of Daily Recommended");
+            // tooltip.select('.percent').html(d3.format('.1f')(100*value/settings.maxValue) + "% of Daily Recommended");
+            tooltip.select('.women').html("Recommended for Females: 2000");
+            tooltip.select('.men').html("Recommended for Men: 2500");
             tooltip.style('display', 'block');
           })
 

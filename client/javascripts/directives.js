@@ -395,7 +395,7 @@ app.directive("fdFill", function(FillChartService, $compile, $location){
       fillType: '<',
     },
     restrict: 'AE',
-    link: function(){
+      link: function(){
     },
     compile: function(element, attrs, transclude) {
       function draw(dataset, fillType, element){
@@ -417,19 +417,23 @@ app.directive("fdFill", function(FillChartService, $compile, $location){
           // TO DO: change maxValue if man 
           d3.select(element[0]).append('svg').call(FillChartService.liquidfillgauge, dataset.value, {
             circleThickness: 0.1,
-            circleColor: "#D94E1F",
             textColor: "#E9705B",
             waveTextColor: "#e83f25",
-            waveColor: "#FFDDDD",
+            // circleColor: "#D94E1F",
+            circleColor: "white",
+            waveColor: "white",
+            // waveColor: "#FFDDDD",
             textVertPosition: 0.52,
             waveAnimateTime: 5000,
             waveHeight: 0,
             waveAnimate: false,
             waveCount: 2,
             waveOffset: 0.25,
-            textSize: 0.6,
+            textSize: 1.25,
+            // textSize: 0.6,
             minValue: 0.3,
-            maxValue: 2000,
+            // maxValue: 2000,
+            maxValue: 1,
             displayPercent: false
           }, element, fillType);
         } else {
@@ -946,13 +950,13 @@ app.directive("fdBullet", function() {
                   .append('div')          
                   .attr('class', 'tooltip');
                 tooltip.append('div').attr('class', 'label');
-                tooltip.append('div').attr('class', 'count'); 
                 tooltip.append('div').attr('class', 'percent');  
+                tooltip.append('div').attr('class', 'count'); 
 
                // Adds tooltip on mouseover. 
                d3.select(element[0]).select('.measure').on('mouseover', function(d) {
                  tooltip.select('.label').html(dataset.name);
-                 tooltip.select('.count').html(dataset.value + " " + dataset.unit)
+                 tooltip.select('.count').html(d3.format('.2r')(dataset.value) + " " + dataset.unit)
                  tooltip.select('.percent').html( d3.format('.2f')(dataset.value/dataset.dri.value * 100) + '%')
                  tooltip.style('display', 'block');
                })
@@ -963,7 +967,7 @@ app.directive("fdBullet", function() {
 
                // Tooltip will move with mouse
                d3.select(element[0]).select('.measure').on('mousemove', function(d) {
-                 tooltip.style('top', (d3.event.layerY + 10) + 'px')
+                 tooltip.style('top', (d3.event.layerY + -15) + 'px')
                    .style('left', (d3.event.layerX + 10) + 'px');
                });
 
