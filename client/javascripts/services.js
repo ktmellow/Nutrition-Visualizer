@@ -76,15 +76,15 @@ app.service("NutritionService", function($http, $location) {
     getSuggestions: function(query) {
       console.log(query, 'query')
       // return $http.get(location.hostname + '/food/suggest?q=' + encodeURIComponent(query));
-      return $http.get('http://localhost:3000/food/suggest?q='+ encodeURIComponent(query));
-      // return $http.get('https://nutrition-vis.herokuapp.com/food/suggest?q='+ encodeURIComponent(query));
+      // return $http.get('http://localhost:3000/food/suggest?q='+ encodeURIComponent(query));
+      return $http.get('https://nutrition-vis.herokuapp.com/food/suggest?q='+ encodeURIComponent(query));
     },
 
     // Makes request to backend with sample API request
     getData: function(id) {
       // return $http.get(location.hostname + '/food/data?id='+id);
-      return $http.get('http://localhost:3000/food/data?id='+id);
-      // return $http.get('https://nutrition-vis.herokuapp.com/food/data?id='+id);
+      // return $http.get('http://localhost:3000/food/data?id='+id);
+      return $http.get('https://nutrition-vis.herokuapp.com/food/data?id='+id);
 
     },
 
