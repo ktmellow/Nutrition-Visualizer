@@ -96,7 +96,6 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
       window.data = vm.data;
 
       if(vm.data.totals.macros["Water"]) {vm.data.totals.water = vm.data.totals.macros["Water"];}
-      
       console.log("changed", vm.data);
     });
   }
@@ -107,7 +106,6 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
 
   vm.remove = function(food) {
     NutritionService.getData(food.ndbno).then(function(data) {
-
       var foodData = data.data.parsed_body.report.food;      
       var removeMacros = NutritionService.getMacros(foodData);
       var removeMinerals = NutritionService.getMinerals(foodData);
@@ -165,7 +163,6 @@ app.controller("EvalController", ['NutritionService', 'EvalService', 'Conversion
       vm.active = false
     }
   }
-
 }])
 
 

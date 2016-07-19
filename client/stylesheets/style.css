@@ -61,11 +61,7 @@ body {
     font-weight: 100;
 }
 
-html, body, #container {
-  height: 100%;
-}
-
-html, body, #container, .sidebar {
+html, body, #container, #placeholder, .sidebar {
   height: 100%;
 }
 
@@ -501,6 +497,27 @@ margin: 3% 3% 0 3%;
   margin-left: 20%;
   height: 100%;
   background-color: #F9FAFA;
+}
+
+#placeholder {
+  position:relative;
+  height: 800px;
+  width: 100%;
+  left: 500px;
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 275px;
+  color: #352B3E;
+  opacity: 0.3;
+}
+
+#placeholder h2 {
+  display:inline-block;
+  padding: 0 2%;
+}
+
+#placeholder .fa {
+  vertical-align: middle;
 }
 
 .sandwich input {

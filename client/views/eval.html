@@ -40,7 +40,11 @@
     </div>
   </div>  <!-- end container -->
 </div>  <!-- end sidenav -->
-
+<div id="placeholder" ng-if="vm.data.foods.length == 0">
+  <!-- <i class="fa fa-pie-chart fa-4x" aria-hidden="true"></i> -->
+  <i class="fa fa-bar-chart fa-5x" aria-hidden="true"></i>
+  <h2>Add foods to make charts!</h2>
+</div>
 <div class="chartsContainer" ng-if="vm.data.foods.length">
   <div class="row">
     <div class="one_third">
